@@ -27,9 +27,13 @@ export default class GlobalFilterComposerItem extends Component {
   }
 
   get checked() {
-    return this.args.selectedTags?.includes(
-      this.args.filter.name || this.args.tagParam
-    ) || false;
+    try {
+      return this.args.selectedTags?.includes(
+        this.args.filter.name || this.args.tagParam
+      ) || false;
+    } catch {
+      return false;
+    }
   }
 
   set checked(value) {
