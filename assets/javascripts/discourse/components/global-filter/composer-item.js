@@ -25,7 +25,11 @@ export default class GlobalFilterComposerItem extends Component {
   @action
   toggleTag() {
     if (!this.args.selectedTags) {
-      this.args.selectedTags = [];
+      try {
+        this.args.selectedTags = [];
+      } catch {
+        this.args = {selectedTags: []};
+      }
     }
     if (this.args.selectedTags.includes(this.args.filter.name)) {
       const filterIndex = this.args.selectedTags.indexOf(this.args.filter.name);
