@@ -12,25 +12,20 @@ export default class GlobalFilterComposerItem extends Component {
     if (!this.args.selectedTags) {
       try {
         this.args.selectedTags = [];
-      } catch {
-        this.args = {selectedTags: []};
-      }
-    }
-    if (!this.args.tagParam) {
-      try {
-        this.args.tagParam = "";
-      } catch {
-        this.args = {tagParam: "", selectedTags: []};
-      }
+      } catch { }
     }
   }
 
   get tagName() {
-    return (
-      this.args.filter.alternate_name ||
-      this.args.filter.name?.replace(/-|_/g, " ") ||
-      ""
-    );
+    try {
+      return (
+        this.args.filter.alternate_name ||
+        this.args.filter.name?.replace(/-|_/g, " ") ||
+        ""
+      );
+    } catch {
+      return ""
+    }
   }
 
   get checked() {
@@ -49,10 +44,14 @@ export default class GlobalFilterComposerItem extends Component {
 
   @action
   toggleTag() {
-    if (this.args.selectedTags.includes(this.args.filter.name)) {
-      const filterIndex = this.args.selectedTags.indexOf(this.args.filter.name);
-      this.args.selectedTags.splice(filterIndex, 1);
-    } else {
+    try {
+      if (this.args.selectedTags.includes(this.args.filter.name)) {
+        const filterIndex = this.args.selectedTags.indexOf(this.args.filter.name);
+        this.args.selectedTags.splice(filterIndex, 1);
+      } else {
+        this.args.selectedTags.push(this.args.filter.name);
+      }
+    } catch {
       this.args.selectedTags.push(this.args.filter.name);
     }
 
