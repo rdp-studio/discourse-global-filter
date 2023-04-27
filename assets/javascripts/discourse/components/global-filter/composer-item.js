@@ -4,6 +4,17 @@ import { ajax } from "discourse/lib/ajax";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default class GlobalFilterComposerItem extends Component {
+  constructor(owner: object, args: Args<S>) {
+    super(owner, args);
+    if (!this.args.selectedTags) {
+      try {
+        this.args.selectedTags = [];
+      } catch {
+        this.args = {selectedTags: []};
+      }
+    }
+  }
+
   get tagName() {
     return (
       this.args.filter.alternate_name ||
@@ -24,13 +35,6 @@ export default class GlobalFilterComposerItem extends Component {
 
   @action
   toggleTag() {
-    if (!this.args.selectedTags) {
-      try {
-        this.args.selectedTags = [];
-      } catch {
-        this.args = {selectedTags: []};
-      }
-    }
     if (this.args.selectedTags.includes(this.args.filter.name)) {
       const filterIndex = this.args.selectedTags.indexOf(this.args.filter.name);
       this.args.selectedTags.splice(filterIndex, 1);
