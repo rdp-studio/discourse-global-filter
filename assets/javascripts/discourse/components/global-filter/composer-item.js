@@ -4,8 +4,11 @@ import { ajax } from "discourse/lib/ajax";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default class GlobalFilterComposerItem extends Component {
-  constructor(owner: object, args: Args<S>) {
+  constructor(owner, args) {
     super(owner, args);
+    if (!this.args) {
+      this.args = args;
+    }
     if (!this.args.selectedTags) {
       try {
         this.args.selectedTags = [];
