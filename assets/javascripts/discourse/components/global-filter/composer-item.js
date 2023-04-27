@@ -16,6 +16,13 @@ export default class GlobalFilterComposerItem extends Component {
         this.args = {selectedTags: []};
       }
     }
+    if (!this.args.tagParam) {
+      try {
+        this.args.tagParam = "";
+      } catch {
+        this.args = {tagParam: "", selectedTags: []};
+      }
+    }
   }
 
   get tagName() {
