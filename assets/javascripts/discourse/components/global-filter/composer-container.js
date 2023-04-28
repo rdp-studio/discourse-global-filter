@@ -6,19 +6,6 @@ export default class GlobalFilterComposerContainer extends Component {
   @service site;
   @service siteSettings;
 
-  constructor(owner, args) {
-    super(owner, args);
-    if (this.siteSettings.display_global_filters_as_dropdown_in_composer) {
-      if (!this.args.value) {
-        try {
-          this.args.value = this.args.composer.tags || [this.router.currentRoute?.queryParams?.tag];
-        } catch {
-          this.args.value = [this.router.currentRoute?.queryParams?.tag];
-        }
-      }
-    }
-  }
-  
   tagParam = this.router.currentRoute?.queryParams?.tag;
 
   get canDisplay() {
